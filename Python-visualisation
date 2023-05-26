@@ -1,0 +1,57 @@
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+# Read the image file
+img = mpimg.imread('C:/Users/mtanz/Desktop/DA projects/NHS smokers in maternity/changed mapa.jpg')
+
+# Create the figure and axis
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Display the image
+ax.imshow(img)
+
+# Plot the data points on the map
+regions = ['East of England', 'London', 'Midlands', 'North East and Yorkshire', 'North West', 'South East', 'South West']
+percent_smokers = [8.2, 4.5, 10.3, 11.8, 9.4, 7.7, 8.8]
+women_smokers = [11640, 10158, 24690, 18594, 14937, 14874, 9156]
+
+# Define the coordinates of the data points on the image
+coordinates = {
+    'East of England': (820, 750),
+    'London': (755, 890),
+    'Midlands': (600, 630),
+    'North East and Yorkshire': (580, 350),
+    'North West': (400, 280),
+    'South East': (650, 950),
+    'South West': (300, 1000)
+}
+
+# Define colors for each region
+colors = ['blue', 'red', 'green', 'orange', 'purple', 'cyan', 'magenta']
+
+# Plot the data points as bubbles and create a legend
+for region, percentage, color in zip(regions, percent_smokers, colors):
+    x, y = coordinates[region]
+    size = percentage * 100  # Adjust the size based on the percentage of smokers
+    opacity = percentage / 15  # Adjust the opacity based on the percentage of smokers
+    ax.scatter(x, y, s=size, color=color, alpha=opacity, label=f'{region}')
+    ax.text(x, y, f'{percentage}%', color='white', ha='center', va='center')
+
+# Set the axis labels and title
+ax.set_xlabel('Longitude')
+ax.set_ylabel('Latitude')
+ax.set_title('Percentage of Smokers in Maternity by Region (England)')
+
+# Create the custom legend
+legend_labels = [f'{region} ({percentage}%)' for region, percentage in zip(regions, percent_smokers)]
+legend = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), title='Region')
+
+# Adjust the size of the legend bubbles
+for handle in legend.legendHandles:
+    handle.set_sizes([40])  # Change the bubble size in the legend
+
+# Hide the scale on the axis
+ax.axis('off')
+
+# Display the plot
+plt.show()
