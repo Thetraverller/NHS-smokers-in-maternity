@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 # Read the image file
-img = mpimg.imread('C:/Users/mtanz/Desktop/DA projects/NHS smokers in maternity/changed mapa.jpg')
+img = mpimg.imread('changed mapa.jpg')
 
 # Create the figure and axis
 fig, ax = plt.subplots(figsize=(10, 8))
