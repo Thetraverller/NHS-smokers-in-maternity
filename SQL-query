@@ -1,0 +1,13 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT m1.[OrgName],
+       SUM(m1.[Value]) AS [Women known to be smokers],
+       SUM(m2.[Value]) AS [Number of maternities],
+	   SUM(m1.[Value]) * 1.00 / SUM(m2.[Value]) *100 AS [Percentage of smokers in maternity]
+FROM [AdventureWorks2017].[dbo].[smok-time-del-eng-q3-2223] AS m1
+INNER JOIN [AdventureWorks2017].[dbo].[smok-time-del-eng-q3-2223] AS m2
+ON m1.[OrgName] = m2.[OrgName]
+WHERE m1.[OrgName] not like 'NHS%'
+AND m1.[Measure] = 'Women known to be smokers at time of delivery' 
+AND m2.[Measure] = 'Number of maternities'
+
+GROUP BY m1.[OrgName];
